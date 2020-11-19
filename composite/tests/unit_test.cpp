@@ -12,8 +12,8 @@
 TEST(ClassAdditionTest, AddEvaluateNonZero) {
 	Base* left = new Op(10.0);
 	Base* right = new Op(20.0);
-	Base test = new Add(left, right);
-	EXPECT_DOUBLE_EQ(tes->evaluate(),30.0);
+	Base* test = new Add(left, right);
+	EXPECT_DOUBLE_EQ(test->evaluate(),30.0);
 }
 
 //1 pos, 1 neg
