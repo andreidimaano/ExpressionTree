@@ -13,10 +13,7 @@ class Factory
             //switch case for Operator
             switch(currentOperator) {
                 case '+': {
-                    Base* temp = prevOperand;
-                    prevOperand = new Add(temp, currentOperand);
-		    std::cout << prevOperand->evaluate() << "prev op after" << std::endl;
-                    delete temp;
+                    prevOperand = new Add(prevOperand, currentOperand);
                     break;
 		}
                 //implement other cases
@@ -56,26 +53,20 @@ class Factory
                 //Check for Number
                 char * endptr;
                 int charToInt = (int) strtol(input[i], &endptr, 10);
-		//std::cout << "charToInt: " << charToInt << std::endl;
                 if(endptr != input[i]){
                     if((*endptr) && (*endptr <= '0' || *endptr >= '9')){
                         //if input is "1a" then the expression is invalid
-                        //std::cout << "charToInt: " << charToInt << std::endl;
                         return nullptr;
                     }
                     if(!prevOperand){
                         //prevOperand == nullptr
-			//std::cout << charToInt << std::endl;
+                        //case for "+ 5"
+                        if(currentOperator) return nullptr;
                         prevOperand = new Op(charToInt);
-			std::cout << "prevOperand evaluate " << prevOperand->evaluate() << std::endl;
                     } else {
                         //reassign prevOperand
-                        std::cout << prevOperand->evaluate() << "third" << std::endl;
                         Base* currentOperand = new Op(charToInt);
                         createExpression(prevOperand, currentOperator, currentOperand);
-                        //std::cout << currentOperand->evaluate() << "after" << std::endl;
-			std::cout << prevOperand->evaluate() << "prevOp after" << std::endl;
-			//seg fault happens here
                         //deallocate space
                         delete currentOperand;
                 
@@ -84,12 +75,9 @@ class Factory
                     }    
                 }            
                 //Check for Operator
-                else if(!validateOperator(input[i])){
-			std::cout << "operator not valid" << std::endl;
-			return nullptr;
-		}
+                else if(!validateOperator(input[i])) return nullptr;
                 else {
-			currentOperator = (strlen(input[i]) == 2) ? '^' : input[i][0];
+			        currentOperator = (strlen(input[i]) == 2) ? '^' : input[i][0];
             	}
 	   }
 
@@ -97,12 +85,3 @@ class Factory
 	    return prevOperand;
         };
 };
-
-// 3 + 2 + 3
-// 4 \* 3
-// 4 \*\* 3
-// invalid inputs:
-// operator and operator
-    // 4 + + 3
-    // 4 +/ 3
-    // 4
