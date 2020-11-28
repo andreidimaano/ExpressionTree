@@ -130,16 +130,15 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
   Base* decimal_one = new Op(1);
   Base* decimal_two = new Op(1);
   Base* expression_one = new Add(decimal_one, decimal_two);
-
+  //1 + 1
   Base* decimal_three = new Op(1);
+  Base* expression_two = new Add(expression_one, decimal_three);
+  //1 + 1 + 1
+
   Base* decimal_four = new Op(1);
-  Base* expression_two = new Add(decimal_three, decimal_four);
-
-  Base* decimal_five = new Op(1);
-
-  Base* expression_three = new Add(expression_two, decimal_five);
-
-  EXPECT_EQ(test->parse(input, 7)->evaluate(), expression_three->evaluate()); 
+  Base* expression_three = new Add(expression_two, decimal_four);
+  //1 + 1 + 1 + 1
+  EXPECT_EQ(test->parse(input, 8)->evaluate(), expression_three->evaluate()); 
 }
 
 // 1 +
