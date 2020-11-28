@@ -34,6 +34,59 @@ TEST(ClassAdditionTest, AddEvaluateNonZero) {
   deleteMemory(input, 4); 
 }
 
+TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
+  Factory* test = new Factory();
+  char** input = new char*[8];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="1"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  char fourth[2] ="1"; 
+  input[3] = new char[strlen(fourth) + 1];
+  strcpy(input[3], fourth);
+
+  char fifth[2] ="+"; 
+  input[4] = new char[strlen(fifth) + 1];
+  strcpy(input[4], fifth);
+
+  char sixth[2] ="1"; 
+  input[5] = new char[strlen(sixth) + 1];
+  strcpy(input[5], sixth);
+
+  char seventh[2] ="+"; 
+  input[6] = new char[strlen(seventh) + 1];
+  strcpy(input[6], seventh);
+
+  char eigth[2] ="1"; 
+  input[7] = new char[strlen(eigth) + 1];
+  strcpy(input[7], eigth);
+
+  Base* decimal_one = new Op(1);
+  Base* decimal_two = new Op(1);
+  Base* expression_one = new Add(decimal_one, decimal_two);
+
+  Base* decimal_three = new Op(1);
+  Base* decimal_four = new Op(1);
+  Base* expression_two = new Add(decimal_three, decimal_four);
+
+  Base* decimal_five = new Op(1);
+
+  Base* expression_three = new Add(expression_two, decimal_five);
+
+  EXPECT_EQ(test->parse(input, 4)->evaluate(), expression_three->evaluate());
+  deleteMemory(input, 4); 
+}
+
+
 void deleteMemory(char** str, size_t n) {
   for(int i = 0; i < n; i++) {
     delete[] str[i];
