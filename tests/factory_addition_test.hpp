@@ -4,8 +4,65 @@
 #include "../composite/header/add.hpp"
 #include <cstring>
 
-void deleteMemory(char**, size_t);
+//1 + 0
+TEST(ClassAdditionTest, AddEvaluateZero) {
+  Factory* test = new Factory();
+  char** input = new char*[4];
 
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="1"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  char fourth[2] ="0"; 
+  input[3] = new char[strlen(third) + 1];
+  strcpy(input[3], fourth);
+
+  Base* decimal_one = new Op(1);
+  Base* decimal_zero = new Op(0);
+
+  Base* additionComposite = new Add(decimal_one, decimal_zero);
+
+  EXPECT_EQ(test->parse(input, 4)->evaluate(), additionComposite->evaluate());
+}
+
+//1 + 0 string
+TEST(ClassAdditionTest, AddEvaluateZeroString) {
+  Factory* test = new Factory();
+  char** input = new char*[4];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="1"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  char fourth[2] ="0"; 
+  input[3] = new char[strlen(third) + 1];
+  strcpy(input[3], fourth);
+
+  Base* decimal_one = new Op(1);
+  Base* decimal_zero = new Op(0);
+
+  Base* additionComposite = new Add(decimal_one, decimal_zero);
+
+  EXPECT_EQ(test->parse(input, 4)->stringify(), additionComposite->stringify());
+}
+
+//1 + 2
 TEST(ClassAdditionTest, AddEvaluateNonZero) {
   Factory* test = new Factory();
   char** input = new char*[4];
@@ -30,10 +87,10 @@ TEST(ClassAdditionTest, AddEvaluateNonZero) {
   Base* decimal_two = new Op(2);
   Base* expression = new Add(decimal_one, decimal_two);
 
-  EXPECT_EQ(test->parse(input, 4)->evaluate(), expression->evaluate());
-  deleteMemory(input, 4); 
+  EXPECT_EQ(test->parse(input, 4)->evaluate(), expression->evaluate()); 
 }
 
+//1 + 1 + 1 + 1
 TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
   Factory* test = new Factory();
   char** input = new char*[8];
@@ -82,16 +139,95 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
 
   Base* expression_three = new Add(expression_two, decimal_five);
 
-  EXPECT_EQ(test->parse(input, 7)->evaluate(), expression_three->evaluate());
-  deleteMemory(input, 7); 
+  EXPECT_EQ(test->parse(input, 7)->evaluate(), expression_three->evaluate()); 
+}
+
+// 1 +
+TEST(ClassAdditionTest, AddInvalidEndWithOperator) {
+  Factory* test = new Factory();
+  char** input = new char*[3];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="1"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  EXPECT_TRUE(test->parse(input, 3) == nullptr);
+}
+
+TEST(ClassAdditionTest, AddInvalidStartWithOperator) {
+  Factory* test = new Factory();
+  char** input = new char*[3];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="+"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="1"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  EXPECT_TRUE(test->parse(input, 3) == nullptr);
+}
+
+// 1a +
+TEST(ClassAdditionTest, AddMixedOperand) {
+  Factory* test = new Factory();
+  char** input = new char*[4];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[3] ="1a"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  char fourth[2] ="1"; 
+  input[3] = new char[strlen(third) + 1];
+  strcpy(input[3], fourth);
+
+  EXPECT_TRUE(test->parse(input, 4) == nullptr);
+}
+
+// a
+TEST(ClassAdditionTest, AddInvalidOperand) {
+  Factory* test = new Factory();
+  char** input = new char*[4];
+
+  char first[7] ="./main"; 
+  input[0] = new char[strlen(first) + 1];
+  strcpy(input[0],first);
+
+  char second[2] ="a"; 
+  input[1] = new char[strlen(second) + 1];
+  strcpy(input[1], second);
+
+  char third[2] ="+"; 
+  input[2] = new char[strlen(third) + 1];
+  strcpy(input[2], third);
+
+  char fourth[2] ="1"; 
+  input[3] = new char[strlen(third) + 1];
+  strcpy(input[3], fourth);
+
+  EXPECT_TRUE(test->parse(input, 4) == nullptr);
 }
 
 
-void deleteMemory(char** str, size_t n) {
-  for(int i = 0; i < n; i++) {
-    delete[] str[i];
-  }
 
-  delete[] str;
-
-}

@@ -47,6 +47,7 @@ class Factory
             Base* prevOperand = nullptr;
             Base* currentOperand = nullptr;
             char currentOperator;
+            bool endsWithOperator = false;
             for(unsigned i = 1; i < length; i++){
                 //Check for Number
                 char * endptr;
@@ -65,6 +66,7 @@ class Factory
                             return nullptr;
                         }
                         prevOperand = new Op(charToInt);
+                        endsWithOperator = false;
                     } else {
                         //reassign prevOperand
                         currentOperand = new Op(charToInt);
@@ -75,15 +77,18 @@ class Factory
                 
                         //reset currentOperator
                         currentOperator = '\0';
+                        endsWithOperator = false;
                     }    
                 } else if(!validateOperator(input[i])) {
                     return nullptr;
                 } else {
                     //std::cout << "i: " << i << std::endl;
 			        currentOperator = (strlen(input[i]) == 2) ? '^' : input[i][0];
+                    endsWithOperator = true;
             	}
 	        }
         //return most recent expression or nullptr
-	    return prevOperand;
+        //checks case for "1 +"
+	    return (endsWithOperator) ? nullptr : prevOperand;
         };
 };
