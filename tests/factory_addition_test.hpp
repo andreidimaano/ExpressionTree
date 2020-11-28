@@ -1,13 +1,4 @@
 #include "gtest/gtest.h"
-
-// #include"op_test.hpp"
-// #include "class_sub_test.hpp"
-// #include "rand_test.hpp"
-// #include "div_test.hpp"
-// #include "../header/add.hpp"
-// #include "../header/op.hpp"
-// #include "mult_test.hpp"
-// #include "pow_test.hpp"
 #include "../Factory.hpp"
 #include "../composite/header/op.hpp"
 #include "../composite/header/add.hpp"
