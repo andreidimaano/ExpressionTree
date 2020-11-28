@@ -14,6 +14,7 @@ class Factory
                     Base* temp = prevOperand;
                     prevOperand = new Add(prevOperand, currentOperand);
                     delete temp;
+                    break;
                 //implement other cases
                 default:
                     Base* temp = prevOperand;
@@ -71,7 +72,7 @@ class Factory
                     }    
                 }            
                 //Check for Operator
-                if(!validateOperator(input[i])) return false;
+                if(!validateOperator(input[i])) return nullptr;
                 currentOperator = (strlen(input[i]) == 2) ? '^' : input[i][0];
             }
 
