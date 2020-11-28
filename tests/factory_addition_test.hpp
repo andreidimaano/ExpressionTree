@@ -13,15 +13,17 @@
 #include "../composite/header/add.hpp"
 #include <cstring>
 
+void deleteMemory(char**, size_t);
+
 TEST(ClassAdditionTest, AddEvaluateNonZero) {
-	Factory* test = new Factory();
+  Factory* test = new Factory();
   char** input = new char*[4];
 
   char first[7] ="./main"; 
   input[0] = new char[strlen(first) + 1];
   strcpy(input[0],first);
 
-   char second[2] ="1"; 
+  char second[2] ="1"; 
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
@@ -38,10 +40,14 @@ TEST(ClassAdditionTest, AddEvaluateNonZero) {
   Base* expression = new Add(decimal_one, decimal_two);
 
   EXPECT_EQ(test->parse(input, 4)->evaluate(), expression->evaluate());
+  deleteMemory(input, 4); 
 }
 
+void deleteMemory(char** str, size_t n) {
+  for(int i = 0; i < n; i++) {
+    delete[] str[i];
+  }
 
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  delete[] str;
+
 }

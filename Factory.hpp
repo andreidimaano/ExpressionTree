@@ -1,5 +1,5 @@
 #include "base.hpp"
-
+#include "composite/header/op.hpp"
 class Factory
 {
     public:
@@ -25,5 +25,6 @@ class Factory
                     //+
                     //-
             }
+	    return new Op(-1);
         };
 };
