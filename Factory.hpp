@@ -9,25 +9,22 @@
 class Factory
 {
     private:
-        void createExpression(Base* prevOperand, char currentOperator, Base* currentOperand){
+        Base* createExpression(Base* prevOperand, char currentOperator, Base* currentOperand){
             //switch case for Operator
             switch(currentOperator) {
                 case '+': {
-                    prevOperand = new Add(prevOperand, currentOperand);
+                    return new Add(prevOperand, currentOperand);
                     break;
-		}
+		        }
                 //implement other cases
                 default: {
-                    Base* temp = prevOperand;
-                    prevOperand = nullptr;
-                    delete temp;
-		}
+                    return nullptr;
+		        }
             }
         }
 
         bool validateOperator(char* input){
             int length = strlen(input);
-            std::cout << input[0] << std::endl;
             if(length == 1){
                 //check for valid operators
                     //finish the rest of the operators
@@ -48,6 +45,7 @@ class Factory
         
         Base* parse(char** input, int length){
             Base* prevOperand = nullptr;
+            Base* currentOperand = nullptr;
             char currentOperator;
             for(unsigned i = 1; i < length; i++){
                 //Check for Number
@@ -55,32 +53,36 @@ class Factory
                 int charToInt = (int) strtol(input[i], &endptr, 10);
                 if(endptr != input[i]){
                     if((*endptr) && (*endptr <= '0' || *endptr >= '9')){
+                        std::cout << "i: " << i << std::endl;
                         //if input is "1a" then the expression is invalid
                         return nullptr;
                     }
                     if(!prevOperand){
                         //prevOperand == nullptr
                         //case for "+ 5"
-                        if(currentOperator) return nullptr;
+                        if(currentOperator) {
+                            std::cout << "i: " << i << std::endl;
+                            return nullptr;
+                        }
                         prevOperand = new Op(charToInt);
                     } else {
                         //reassign prevOperand
-                        Base* currentOperand = new Op(charToInt);
-                        createExpression(prevOperand, currentOperator, currentOperand);
+                        currentOperand = new Op(charToInt);
+                        prevOperand = createExpression(prevOperand, currentOperator, currentOperand);
+                        std::cout << "evaluate: " << prevOperand->evaluate();
                         //deallocate space
-                        delete currentOperand;
+                        //delete currentOperand;
                 
                         //reset currentOperator
                         currentOperator = '\0';
                     }    
-                }            
-                //Check for Operator
-                else if(!validateOperator(input[i])) return nullptr;
-                else {
+                } else if(!validateOperator(input[i])) {
+                    return nullptr;
+                } else {
+                    //std::cout << "i: " << i << std::endl;
 			        currentOperator = (strlen(input[i]) == 2) ? '^' : input[i][0];
             	}
-	   }
-
+	        }
         //return most recent expression or nullptr
 	    return prevOperand;
         };
