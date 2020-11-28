@@ -5,6 +5,7 @@ class Factory
     public:
         Factory() {};
         Base* parse(char** input, int length){
+            
             for(unsigned i = 1; i < length; i++){
                 //Prev Operand
                 //Char prevOperator
