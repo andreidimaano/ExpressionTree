@@ -82,8 +82,8 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
 
   Base* expression_three = new Add(expression_two, decimal_five);
 
-  EXPECT_EQ(test->parse(input, 4)->evaluate(), expression_three->evaluate());
-  deleteMemory(input, 4); 
+  EXPECT_EQ(test->parse(input, 7)->evaluate(), expression_three->evaluate());
+  deleteMemory(input, 7); 
 }
 
 

@@ -53,7 +53,7 @@ class Factory
                 int charToInt = (int) strtol(input[i], &endptr, 10);
                 if(endptr != input[i]){
                     if((*endptr) && (*endptr <= '0' || *endptr >= '9')){
-                        std::cout << "i: " << i << std::endl;
+                        //std::cout << "i: " << i << std::endl;
                         //if input is "1a" then the expression is invalid
                         return nullptr;
                     }
@@ -61,7 +61,7 @@ class Factory
                         //prevOperand == nullptr
                         //case for "+ 5"
                         if(currentOperator) {
-                            std::cout << "i: " << i << std::endl;
+                            //std::cout << "i: " << i << std::endl;
                             return nullptr;
                         }
                         prevOperand = new Op(charToInt);
@@ -69,7 +69,7 @@ class Factory
                         //reassign prevOperand
                         currentOperand = new Op(charToInt);
                         prevOperand = createExpression(prevOperand, currentOperator, currentOperand);
-                        std::cout << "evaluate: " << prevOperand->evaluate();
+                        //std::cout << "evaluate: " << prevOperand->evaluate();
                         //deallocate space
                         //delete currentOperand;
                 
