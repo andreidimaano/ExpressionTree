@@ -1,6 +1,7 @@
 #include "base.hpp"
 #include "composite/header/add.hpp"
 #include "composite/header/op.hpp"
+#include "composite/header/sub.hpp"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
@@ -17,8 +18,8 @@ class Factory
                     break;
 		        }
                 //implement other cases
-                case: '-' : {
-		    return new Sub(prevOperand, currentOperand):
+                case '-' : {
+		    return new Sub(prevOperand, currentOperand);
 		    break;
 
 		default: {
