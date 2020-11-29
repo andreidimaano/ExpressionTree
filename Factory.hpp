@@ -17,7 +17,11 @@ class Factory
                     break;
 		        }
                 //implement other cases
-                default: {
+                case: '-' : {
+		    return new Sub(prevOperand, currentOperand):
+		    break;
+
+		default: {
                     return nullptr;
 		        }
             }
