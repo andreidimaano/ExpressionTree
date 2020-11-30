@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include "factory_subtraction_test.hpp"
 #include "factory_addition_test.hpp"
 
 int main(int argc, char **argv) {

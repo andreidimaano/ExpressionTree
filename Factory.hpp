@@ -21,7 +21,7 @@ class Factory
                 case '-' : {
 		    return new Sub(prevOperand, currentOperand);
 		    break;
-
+			}
 		default: {
                     return nullptr;
 		        }
@@ -37,8 +37,11 @@ class Factory
                     // || input[0] != '*'
                 if(input[0] != '+'){
                     return false;
-                }
+                } else if(input[0] != '-') {
+		       return false;
+		       }
             }
+
 
             if(length == 2 && input[0] != '*' && input[1] != '*') return false;
 
