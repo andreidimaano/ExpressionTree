@@ -2,6 +2,7 @@
 #include "composite/header/add.hpp"
 #include "composite/header/op.hpp"
 #include "composite/header/sub.hpp"
+#include "composite/header/div.hpp"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
@@ -22,6 +23,11 @@ class Factory
                     return new Sub(prevOperand, currentOperand);
                     break;
 			    }
+                case '/': {
+                    if(currentOperand->evaluate() == 0) std::cout << "Cannot divide by zero" << std:: endl;
+                    return (currentOperand->evaluate() == 0) ? nullptr : new Div(prevOperand, currentOperand);
+                    break;
+                }
                 default: {
                     return nullptr;
                 }
@@ -35,7 +41,7 @@ class Factory
                     //finish the rest of the operators
                     //i.e add to the condition statement
                     // || input[0] != '*'
-                if(input[0] != '+' && input[0] != '-'){
+                if(input[0] != '+' && input[0] != '-' && input[0] != '/'){
                     return false;
                 }
             }
