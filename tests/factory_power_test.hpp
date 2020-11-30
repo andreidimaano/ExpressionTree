@@ -33,7 +33,7 @@ TEST(ClassPowerTest, PowEvaluateZero) {
   EXPECT_EQ(test->parse(input, 4)->evaluate(), PowerComposite->evaluate());
 }
 
-// //1 ^ 0 string
+// //1 ^ 1 ^ 1 ^ 1 string
 TEST(ClassPowerTest, PowEvaluateZeroString) {
   Factory* test = new Factory();
   char** input = new char*[4];
@@ -62,7 +62,7 @@ TEST(ClassPowerTest, PowEvaluateZeroString) {
   EXPECT_EQ(test->parse(input, 4)->stringify(), PowerComposite->stringify());
 }
 
-// //1 + 2
+// //1 ^ 2
 TEST(ClassPowerTest, PowEvaluateNonZero) {
   Factory* test = new Factory();
   char** input = new char*[4];
@@ -127,15 +127,15 @@ TEST(ClassPowerTest, PowMultipleEvaluateNonZero) {
   input[7] = new char[strlen(eigth) + 1];
   strcpy(input[7], eigth);
 
-  Base* decimal_one = new Op(1);
-  Base* decimal_two = new Op(1);
+  Base* decimal_one = new Op(2);
+  Base* decimal_two = new Op(2);
   Base* expression_one = new Pow(decimal_one, decimal_two);
   //1 + 1
-  Base* decimal_three = new Op(1);
+  Base* decimal_three = new Op(2);
   Base* expression_two = new Pow(expression_one, decimal_three);
   //1 + 1 + 1
 
-  Base* decimal_four = new Op(1);
+  Base* decimal_four = new Op(2);
   Base* expression_three = new Pow(expression_two, decimal_four);
   //1 + 1 + 1 + 1
   EXPECT_EQ(test->parse(input, 8)->evaluate(), expression_three->evaluate()); 
