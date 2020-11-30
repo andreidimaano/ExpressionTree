@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "../Factory.hpp"
 #include "../composite/header/op.hpp"
-#include "../composite/header/Div.hpp"
+#include "../composite/header/div.hpp"
 #include <cstring>
 
 //1 / 0
