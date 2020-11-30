@@ -5,6 +5,7 @@
 #include "composite/header/op.hpp"
 #include "composite/header/sub.hpp"
 #include "composite/header/div.hpp"
+#include "composite/header/pow.hpp"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
@@ -28,6 +29,10 @@ class Factory
                 case '/': {
                     if(currentOperand->evaluate() == 0) std::cout << "Cannot divide by zero" << std:: endl;
                     return (currentOperand->evaluate() == 0) ? nullptr : new Div(prevOperand, currentOperand);
+                    break;
+                }
+                case '^': {
+                    return new Pow(prevOperand, currentOperand);
                     break;
                 }
                 default: {
@@ -106,4 +111,5 @@ class Factory
 	    return (endsWithOperator) ? nullptr : prevOperand;
         };
 };
+
 #endif
