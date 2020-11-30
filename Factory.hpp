@@ -1,3 +1,5 @@
+#ifndef FACTORY_H
+#define FACTORY_H
 #include "base.hpp"
 #include "composite/header/add.hpp"
 #include "composite/header/op.hpp"
@@ -47,7 +49,7 @@ class Factory
         }
 
     public:
-        Factory() {};
+        Factory() {}
         
         Base* parse(char** input, int length){
             Base* prevOperand = nullptr;
@@ -98,3 +100,5 @@ class Factory
 	    return (endsWithOperator) ? nullptr : prevOperand;
         };
 };
+
+#endif

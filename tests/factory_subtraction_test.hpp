@@ -1,3 +1,6 @@
+#ifndef __sub_factory__
+#define __sub_factory__
+
 #include "gtest/gtest.h"
 #include "../Factory.hpp"
 #include "../composite/header/op.hpp"
@@ -34,3 +37,5 @@ TEST(ClassSubtractionTest, SubEvaluateZero) {
 
   EXPECT_EQ(test->parse(input, 4)->evaluate(), subtractionComposite->evaluate());
 }
+
+#endif

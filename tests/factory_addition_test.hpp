@@ -1,3 +1,6 @@
+#ifndef __add_factory__
+#define __add_factory__
+
 #include "gtest/gtest.h"
 #include "../Factory.hpp"
 #include "../composite/header/op.hpp"
@@ -228,5 +231,5 @@ TEST(ClassAdditionTest, AddInvalidOperand) {
   EXPECT_TRUE(test->parse(input, 4) == nullptr);
 }
 
-
+#endif
 
