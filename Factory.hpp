@@ -55,7 +55,7 @@ class Factory
         }
 
     public:
-        Factory() {};
+        Factory() {}
         
         Base* parse(char** input, int length){
             Base* prevOperand = nullptr;

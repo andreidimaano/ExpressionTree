@@ -1,14 +1,16 @@
-#ifndef __add_factory__
-#define __add_factory__
+#ifndef __sub_factory__
+#define __sub_factory__
 
 #include "gtest/gtest.h"
 #include "../Factory.hpp"
 #include "../composite/header/op.hpp"
 #include "../composite/header/add.hpp"
+#include "../composite/header/sub.hpp"
 #include <cstring>
 
-//1 + 0
-TEST(ClassAdditionTest, AddEvaluateZero) {
+
+//
+TEST(ClassSubtractionTest, SubEvaluateZero) {
   Factory* test = new Factory();
   char** input = new char*[4];
 
@@ -20,7 +22,7 @@ TEST(ClassAdditionTest, AddEvaluateZero) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -31,13 +33,14 @@ TEST(ClassAdditionTest, AddEvaluateZero) {
   Base* decimal_one = new Op(1);
   Base* decimal_zero = new Op(0);
 
-  Base* additionComposite = new Add(decimal_one, decimal_zero);
+  Base* subtractionComposite = new Sub(decimal_one, decimal_zero);
 
-  EXPECT_EQ(test->parse(input, 4)->evaluate(), additionComposite->evaluate());
+  EXPECT_EQ(test->parse(input, 4)->evaluate(), subtractionComposite->evaluate());
 }
 
-// //1 + 0 string
-TEST(ClassAdditionTest, AddEvaluateZeroString) {
+
+
+TEST(ClassSubtractionTest, SubEvaluateZeroString) {
   Factory* test = new Factory();
   char** input = new char*[4];
 
@@ -49,7 +52,7 @@ TEST(ClassAdditionTest, AddEvaluateZeroString) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -60,13 +63,14 @@ TEST(ClassAdditionTest, AddEvaluateZeroString) {
   Base* decimal_one = new Op(1);
   Base* decimal_zero = new Op(0);
 
-  Base* additionComposite = new Add(decimal_one, decimal_zero);
+  Base* subtractionComposite = new Sub(decimal_one, decimal_zero);
 
-  EXPECT_EQ(test->parse(input, 4)->stringify(), additionComposite->stringify());
+  EXPECT_EQ(test->parse(input, 4)->stringify(), subtractionComposite->stringify());
 }
 
-// //1 + 2
-TEST(ClassAdditionTest, AddEvaluateNonZero) {
+
+
+TEST(ClassSubtractionTest, SubEvaluateNonZero) {
   Factory* test = new Factory();
   char** input = new char*[4];
 
@@ -78,7 +82,7 @@ TEST(ClassAdditionTest, AddEvaluateNonZero) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -88,13 +92,14 @@ TEST(ClassAdditionTest, AddEvaluateNonZero) {
 
   Base* decimal_one = new Op(1);
   Base* decimal_two = new Op(2);
-  Base* expression = new Add(decimal_one, decimal_two);
+  Base* expression = new Sub(decimal_one, decimal_two);
 
   EXPECT_EQ(test->parse(input, 4)->evaluate(), expression->evaluate()); 
 }
 
-//1 + 1 + 1 + 1
-TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
+
+
+TEST(ClassSubtractionTest, SubMultipleEvaluateNonZero) {
   Factory* test = new Factory();
   char** input = new char*[8];
 
@@ -106,7 +111,7 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -114,7 +119,7 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
   input[3] = new char[strlen(fourth) + 1];
   strcpy(input[3], fourth);
 
-  char fifth[2] ="+"; 
+  char fifth[2] ="-"; 
   input[4] = new char[strlen(fifth) + 1];
   strcpy(input[4], fifth);
 
@@ -122,7 +127,7 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
   input[5] = new char[strlen(sixth) + 1];
   strcpy(input[5], sixth);
 
-  char seventh[2] ="+"; 
+  char seventh[2] ="-"; 
   input[6] = new char[strlen(seventh) + 1];
   strcpy(input[6], seventh);
 
@@ -132,20 +137,19 @@ TEST(ClassAdditionTest, AddMultipleEvaluateNonZero) {
 
   Base* decimal_one = new Op(1);
   Base* decimal_two = new Op(1);
-  Base* expression_one = new Add(decimal_one, decimal_two);
+  Base* expression_one = new Sub(decimal_one, decimal_two);
   //1 + 1
   Base* decimal_three = new Op(1);
-  Base* expression_two = new Add(expression_one, decimal_three);
+  Base* expression_two = new Sub(expression_one, decimal_three);
   //1 + 1 + 1
-
+  //
   Base* decimal_four = new Op(1);
-  Base* expression_three = new Add(expression_two, decimal_four);
+  Base* expression_three = new Sub(expression_two, decimal_four);
   //1 + 1 + 1 + 1
   EXPECT_EQ(test->parse(input, 8)->evaluate(), expression_three->evaluate()); 
 }
 
-// 1 +
-TEST(ClassAdditionTest, AddInvalidEndWithOperator) {
+TEST(ClassSubtractionTest, SubInvalidEndWithOperator) {
   Factory* test = new Factory();
   char** input = new char*[3];
 
@@ -157,14 +161,15 @@ TEST(ClassAdditionTest, AddInvalidEndWithOperator) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
   EXPECT_TRUE(test->parse(input, 3) == nullptr);
-}
+} 
 
-TEST(ClassAdditionTest, AddInvalidStartWithOperator) {
+
+TEST(ClassSubtractionTest, SubInvalidStartWithOperator) {
   Factory* test = new Factory();
   char** input = new char*[3];
 
@@ -172,7 +177,7 @@ TEST(ClassAdditionTest, AddInvalidStartWithOperator) {
   input[0] = new char[strlen(first) + 1];
   strcpy(input[0],first);
 
-  char second[2] ="+"; 
+  char second[2] ="-"; 
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
@@ -183,8 +188,9 @@ TEST(ClassAdditionTest, AddInvalidStartWithOperator) {
   EXPECT_TRUE(test->parse(input, 3) == nullptr);
 }
 
-// // 1a +
-TEST(ClassAdditionTest, AddMixedOperand) {
+
+
+TEST(ClassSubtractionTest, SubMixedOperand) {
   Factory* test = new Factory();
   char** input = new char*[4];
 
@@ -196,7 +202,7 @@ TEST(ClassAdditionTest, AddMixedOperand) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -207,8 +213,8 @@ TEST(ClassAdditionTest, AddMixedOperand) {
   EXPECT_TRUE(test->parse(input, 4) == nullptr);
 }
 
-// a
-TEST(ClassAdditionTest, AddInvalidOperand) {
+
+TEST(ClassSubtractionTest, SubInvalidOperand) {
   Factory* test = new Factory();
   char** input = new char*[4];
 
@@ -220,7 +226,7 @@ TEST(ClassAdditionTest, AddInvalidOperand) {
   input[1] = new char[strlen(second) + 1];
   strcpy(input[1], second);
 
-  char third[2] ="+"; 
+  char third[2] ="-"; 
   input[2] = new char[strlen(third) + 1];
   strcpy(input[2], third);
 
@@ -230,6 +236,4 @@ TEST(ClassAdditionTest, AddInvalidOperand) {
 
   EXPECT_TRUE(test->parse(input, 4) == nullptr);
 }
-
 #endif
-
