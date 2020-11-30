@@ -5,6 +5,7 @@
 #include "composite/header/op.hpp"
 #include "composite/header/sub.hpp"
 #include "composite/header/div.hpp"
+#include "composite/header/mult.hpp"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
@@ -30,6 +31,10 @@ class Factory
                     return (currentOperand->evaluate() == 0) ? nullptr : new Div(prevOperand, currentOperand);
                     break;
                 }
+		case '*' : {
+		    return new Mult(prevOperand, currentOperand);
+		    break;
+		           }
                 default: {
                     return nullptr;
                 }
@@ -43,7 +48,7 @@ class Factory
                     //finish the rest of the operators
                     //i.e add to the condition statement
                     // || input[0] != '*'
-                if(input[0] != '+' && input[0] != '-' && input[0] != '/'){
+                if(input[0] != '+' && input[0] != '-' && input[0] != '/' && input[0] != '*'){
                     return false;
                 }
             }
