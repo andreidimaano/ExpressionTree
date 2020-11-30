@@ -1,8 +1,9 @@
 #include "gtest/gtest.h"
 
-//#include "factory_subtraction_test.hpp"
+#include "factory_subtraction_test.hpp"
 #include "factory_addition_test.hpp"
 #include "factory_division_test.hpp"
+#include "factory_multiplication_test.hpp"
 #include "factory_power_test.hpp"
 
 int main(int argc, char **argv) {
