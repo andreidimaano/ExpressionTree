@@ -5,6 +5,7 @@
 #include "composite/header/op.hpp"
 #include "composite/header/sub.hpp"
 #include "composite/header/div.hpp"
+#include "composite/header/mult.hpp"
 #include "composite/header/pow.hpp"
 #include <cstring>
 #include <iostream>
@@ -20,17 +21,21 @@ class Factory
                 case '+': {
                     return new Add(prevOperand, currentOperand);
                     break;
-		        }
+		            }
                 //implement other cases
                 case '-' : {
                     return new Sub(prevOperand, currentOperand);
                     break;
-			    }
+			          }
                 case '/': {
                     if(currentOperand->evaluate() == 0) std::cout << "Cannot divide by zero" << std:: endl;
                     return (currentOperand->evaluate() == 0) ? nullptr : new Div(prevOperand, currentOperand);
                     break;
                 }
+		            case '*' : {
+		                return new Mult(prevOperand, currentOperand);
+		                break;
+		            }
                 case '^': {
                     return new Pow(prevOperand, currentOperand);
                     break;
@@ -48,7 +53,7 @@ class Factory
                     //finish the rest of the operators
                     //i.e add to the condition statement
                     // || input[0] != '*'
-                if(input[0] != '+' && input[0] != '-' && input[0] != '/'){
+                if(input[0] != '+' && input[0] != '-' && input[0] != '/' && input[0] != '*'){
                     return false;
                 }
             }
