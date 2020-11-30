@@ -19,12 +19,12 @@ class Factory
 		        }
                 //implement other cases
                 case '-' : {
-		    return new Sub(prevOperand, currentOperand);
-		    break;
-			}
-		default: {
+                    return new Sub(prevOperand, currentOperand);
+                    break;
+			    }
+                default: {
                     return nullptr;
-		        }
+                }
             }
         }
 
@@ -35,11 +35,9 @@ class Factory
                     //finish the rest of the operators
                     //i.e add to the condition statement
                     // || input[0] != '*'
-                if(input[0] != '+'){
+                if(input[0] != '+' && input[0] != '-'){
                     return false;
-                } else if(input[0] != '-') {
-		       return false;
-		       }
+                }
             }
 
 
